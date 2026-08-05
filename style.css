@@ -130,6 +130,14 @@ button,input,textarea{font:inherit;color:inherit}
 .nav a{transition:color .14s var(--ease)}
 .nav a:hover{color:var(--accent)}
 .nav__num{font:500 11px/1 var(--mono);color:var(--accent-dim);margin-right:6px}
+/* Click-to-call in the header. Kept visible on mobile — where it matters most —
+   while the quote button is the thing that drops away. */
+.header-tel{
+  font:400 14px/1 var(--mono);letter-spacing:.02em;
+  color:var(--muted);white-space:nowrap;
+  transition:color .16s var(--ease);
+}
+.header-tel:hover{color:var(--accent)}
 .menu-btn{
   display:none;background:none;border:1px solid var(--rule);border-radius:2px;
   padding:9px 12px;font:500 12px/1 var(--mono);letter-spacing:.08em;
@@ -357,7 +365,8 @@ button,input,textarea{font:inherit;color:inherit}
   .nav.open{display:flex}
   .nav a{padding:16px var(--pad-x);border-top:1px solid var(--rule);font-size:15px}
   .menu-btn{display:block;order:3}
-  .site-header__inner{position:relative;flex-wrap:wrap;padding:14px var(--pad-x)}
+  .header-tel{order:2;font-size:13px}
+  .site-header__inner{position:relative;flex-wrap:wrap;gap:12px;padding:14px var(--pad-x)}
   .header-cta{display:none}
   /* On narrow screens the cover crop zooms in, so a left-to-right gradient stops
      working — shade top-down instead and let the footage sit below the copy. */

@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Secure Shredding &amp; Retention, Dublin — Cyclone Archive</title>
-<meta name="description" content="Confidential document destruction at our own Dublin facility by Cyclone Shredding Ltd, with a certificate of destruction issued.">
+<title>Cyclone Archive — Document Scanning, Storage &amp; Shredding, Dublin</title>
+<meta name="description" content="Cyclone Archive scans, stores, retrieves and destroys confidential business documents. Over 30 years in Dublin. ISO 14001 &amp; 9001 accredited.">
 <meta name="theme-color" content="#0e1210">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
     <nav class="nav" id="nav" aria-label="Services">
       <a href="scanning.html">Scanning</a>
       <a href="storage.html">Storage</a>
-      <a href="shredding.html" aria-current="page" class="is-current">Shredding</a>
+      <a href="shredding.html">Shredding</a>
     </nav>
     <a class="header-tel" href="tel:+35318140734">+353 1 8140734</a>
     <button class="menu-btn" id="menuBtn" aria-controls="nav" aria-expanded="false">Menu</button>
@@ -34,80 +34,105 @@
 
 <main id="main">
 
-  <section class="page-hero" data-reveal>
+  <section class="hero" data-reveal>
+    <!-- Static still always renders. The video layers over it only if it can actually play,
+         so blocked autoplay or blocked media degrades to a photographic hero, never a blank panel. -->
+    <img class="hero__still" src="scanner-poster.jpg" alt="" aria-hidden="true">
+    <video class="hero__video" src="scanner.mp4" poster="scanner-poster.jpg"
+           autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+    <div class="hero__scrim"></div>
+    <div class="hero__inner">
+     <div class="hero__col">
+      <p class="pill"><span class="pill__dot"></span>Document scanning &middot; Dublin &middot; Over 30 years</p>
+      <h1>Paper you must keep. Somewhere else.</h1>
+      <p>Records you are obliged to hold but have no room for. We scan them, store them under 24/7 monitoring at our purpose-built facility, send a file back when you ask, and shred them with a certificate when the retention period ends.</p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="#quote">Get a scanning quote</a>
+        <a class="btn btn--ghost" href="scanning.html">Walk through the process</a>
+      </div>
+     </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div><div class="strip__big">30+ years</div><div class="strip__sub">handling Dublin business records</div></div>
+    <div><div class="strip__big">ISO 9001 &amp; 14001</div><div class="strip__sub">accredited</div></div>
+    <div><div class="strip__big">Purpose-built</div><div class="strip__sub">our own facility</div></div>
+    <div><div class="strip__big">Monitored 24/7</div><div class="strip__sub">barcode audit trail</div></div>
+  </div>
+
+  <section id="lifecycle" class="section" data-reveal aria-labelledby="life-h">
     <div class="wrap">
-      <p class="eyebrow">04 &middot; Shredding</p>
-      <h1>Destroyed on our premises, with a certificate</h1>
-      <p class="lede">When a retention period ends the paper is destroyed at our purpose-built facility &mdash; not handed to a third party and not moved off site first.</p>
-      <div class="hero__cta" style="margin-top:30px">
-        <a class="btn btn--solid" href="#quote">Get a shredding quote</a>
-        <a class="btn btn--ghost" href="index.html">All four services</a>
+      <p class="eyebrow">What we do</p>
+      <h2 id="life-h" class="pillar-h">One supplier for the whole life of a record</h2>
+      <p class="lede">Paper arrives, gets digitised, sits somewhere secure while you still need it, comes back when you ask, and is destroyed when it is finally spent. We handle all four, so nothing changes hands between suppliers.</p>
+      <div class="cards cards--4">
+        <a class="card card--link" href="scanning.html">
+          <span class="card__num">01</span>
+          <h3>Scan</h3>
+          <p>Collected, prepped, scanned A3 to A6 and indexed. Back to you as searchable files.</p>
+          <span class="card__go">Scanning &rarr;</span>
+        </a>
+        <a class="card card--link" href="storage.html">
+          <span class="card__num">02</span>
+          <h3>Store</h3>
+          <p>Our own purpose-built facility. Barcoded to shelf position and monitored around the clock.</p>
+          <span class="card__go">Storage &rarr;</span>
+        </a>
+        <a class="card card--link" href="storage.html#retrieve">
+          <span class="card__num">03</span>
+          <h3>Retrieve</h3>
+          <p>A single file back out of storage without unpacking anything else.</p>
+          <span class="card__go">Retrieval &rarr;</span>
+        </a>
+        <a class="card card--link" href="shredding.html">
+          <span class="card__num">04</span>
+          <h3>Destroy</h3>
+          <p>Shredded on our premises by Cyclone Shredding Ltd, with a certificate issued.</p>
+          <span class="card__go">Shredding &rarr;</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section id="destroy" class="section" data-reveal aria-labelledby="des-h">
+  <section id="who" class="section" data-reveal aria-labelledby="who-h">
     <div class="wrap">
-      <div class="split" style="align-items:start;margin-top:30px">
-        <div>
-          <p class="lede">When a retention period runs out the paper is shredded at our purpose-built facility by Cyclone Shredding Ltd &mdash; not handed to a third party and not moved off site first.</p>
-          <hr class="scanline" style="margin-top:32px" aria-hidden="true">
-        </div>
-        <div class="rows">
-          <div><b>Authorisation</b><span>nothing destroyed until you say so</span></div>
-          <div><b>Where</b><span>at our own facility, by Cyclone Shredding Ltd</span></div>
-          <div><b>Proof</b><span>certificate of destruction issued</span></div>
-          <div><b>Environmental</b><span>ISO 14001 accredited</span></div>
-        </div>
+      <p class="eyebrow">Who this is for</p>
+      <h2 id="who-h" class="pillar-h">The records that usually start the conversation</h2>
+      <p class="lede">Every sector has one class of document it is obliged to keep, has no room for, and cannot afford to lose.</p>
+      <div class="who">
+        <div><b>Solicitors</b><span>closed matter files, deeds</span></div>
+        <div><b>GP practices &amp; clinics</b><span>patient records</span></div>
+        <div><b>Pharmacies</b><span>dispensing records, CD registers</span></div>
+        <div><b>Accountancy practices</b><span>client files, audit working papers</span></div>
+        <div><b>Construction &amp; engineering</b><span>drawings, site and safety records</span></div>
+        <div><b>HR departments</b><span>personnel and leaver files</span></div>
+        <div><b>Brokers &amp; advisers</b><span>client files under conduct rules</span></div>
+        <div><b>Schools &amp; colleges</b><span>student and enrolment records</span></div>
+        <div><b>Property &amp; letting agents</b><span>leases, deeds, tenancy records</span></div>
+        <div><b>Food &amp; pharma manufacturers</b><span>batch records, traceability</span></div>
       </div>
+      <hr class="scanline" style="margin-top:52px" aria-hidden="true">
     </div>
   </section>
 
-  <section id="retention" class="section" data-reveal aria-labelledby="ret2-h">
-    <div class="wrap">
-      <p class="eyebrow">Retention</p>
-      <h2 id="ret2-h" class="pillar-h">How long you have to keep it</h2>
-      <div class="split" style="align-items:start;margin-top:30px">
-        <div>
-          <p class="lede">Every record has a point before which destroying it is a problem, and a point after which keeping it is one. Where those two points fall depends on the document and on who regulates you.</p>
-          <p class="lede" style="margin-top:18px">We do not set retention policy. You or your advisers decide how long each class of record is held, and we hold it accordingly &mdash; then destroy it, with a certificate, once you authorise that the period has ended.</p>
-          <hr class="scanline" style="margin-top:32px" aria-hidden="true">
-        </div>
-        <div class="rows">
-          <div><b>Record type</b><span>a contract, a personnel file and a purchase invoice are not the same</span></div>
-          <div><b>Your regulator</b><span>professional bodies and sector regulators set their own expectations</span></div>
-          <div><b>Contract terms</b><span>clients and insurers often require longer than the statutory floor</span></div>
-          <div><b>Your own advice</b><span>the final call sits with you, not with your storage provider</span></div>
-        </div>
-      </div>
-      <div class="cards" style="grid-template-columns:repeat(2,1fr)">
-        <article class="card">
-          <h3>Destroyed too early</h3>
-          <p>An inspection, an audit or a dispute arrives and the record that would have answered it is gone. Nothing here is shredded without your written authorisation, precisely because that call cannot be undone.</p>
-        </article>
-        <article class="card">
-          <h3>Kept indefinitely</h3>
-          <p>Storage cost compounds, and personal data is not supposed to be held for longer than it is needed. Knowing what you hold is the first step to deciding what you no longer have to.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" data-reveal aria-labelledby="faq-h">
-    <div class="wrap faq">
+  <section id="triggers" class="section" style="background:var(--ink-2)" data-reveal aria-labelledby="trig-h">
+    <div class="wrap split" style="align-items:start">
       <div>
-        <p class="eyebrow">Quick guide</p>
-        <h2 id="faq-h" class="pillar-h" style="margin-top:12px">Shredding questions</h2>
+        <p class="eyebrow">Timing</p>
+        <h2 id="trig-h" class="pillar-h" style="margin-bottom:16px">What usually prompts the call</h2>
+        <p class="lede">Almost nobody wakes up wanting to talk about document storage. Something forces it.</p>
       </div>
-      <div>
-        <details>
-          <summary>How do I know when documents can be destroyed?</summary>
-          <p>That depends on the record and on who regulates your sector, so the retention period is yours to set &mdash; with your own advisers if needed. We hold the boxes until you tell us a period has ended, and destroy nothing without your authorisation.</p>
-        </details>
-        <details>
-          <summary>Do I get proof that documents were destroyed?</summary>
-          <p>Yes. Shredding is carried out on our premises by Cyclone Shredding Limited and a certificate of destruction is issued.</p>
-        </details>
+      <div class="rows">
+        <div><b>An office move</b><span>or giving up a floor</span></div>
+        <div><b>Hybrid working</b><span>staff cannot reach the paper from home</span></div>
+        <div><b>A data request</b><span>that took three days to answer</span></div>
+        <div><b>An audit or inspection</b><span>already on the calendar</span></div>
+        <div><b>A system migration</b><span>and the back file has to come too</span></div>
+        <div><b>An acquisition</b><span>with a data room that needs documents now</span></div>
+        <div><b>A principal retiring</b><span>or the practice changing hands</span></div>
+        <div><b>A retention period ending</b><span>and nowhere to shred at volume</span></div>
+        <div><b>A leak or a flood</b><span>and one copy of everything</span></div>
       </div>
     </div>
   </section>
@@ -149,9 +174,9 @@
             <option>Scanning</option>
             <option>Storage</option>
             <option>Retrieval from storage</option>
-            <option selected>Shredding</option>
+            <option>Shredding</option>
             <option>More than one of these</option>
-            <option>Not sure yet</option>
+            <option selected>Not sure yet</option>
           </select>
         </div>
         <div class="field">
