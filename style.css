@@ -1,0 +1,413 @@
+/* ---------- tokens ---------- */
+:root{
+  --ink:#0e1210;          /* page ground */
+  --ink-2:#111614;        /* raised panel */
+  --ink-3:#131a15;        /* input / hover fill */
+  --rule:#23291f;         /* hairline */
+  --rule-2:#35462f;       /* hairline, active */
+  --text:#e7ece8;
+  --muted:#9aa79c;
+  --faint:#6d7a6f;
+  --accent:oklch(0.78 0.15 155);   /* Cyclone green */
+  --accent-dim:#35462f;
+
+  --sans:'Inter',system-ui,Helvetica,Arial,sans-serif;
+  --display:'Inter',system-ui,Helvetica,Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --pad-x:52px;
+  --pad-y:84px;
+  --maxw:1180px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+/* ---------- reset ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--text);
+  font:400 17px/1.55 var(--sans);
+  font-feature-settings:'cv05' 1;   /* Inter: single-storey l with a tail, clearer at small sizes */
+  -webkit-font-smoothing:antialiased;
+}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;text-wrap:pretty}
+/* Tracking scales with size — display type needs the negative pull, 19px headings don't. */
+.pillar-h,.step__body h2{letter-spacing:-.024em}
+.card h3,.reason h3,.faq summary{letter-spacing:-.008em}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+
+/* ---------- a11y floor ---------- */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{
+  position:absolute;left:16px;top:-60px;z-index:50;
+  background:var(--accent);color:var(--ink);font-weight:600;
+  padding:12px 18px;border-radius:2px;transition:top .18s var(--ease);
+}
+.skip:focus{top:16px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* ---------- layout primitives ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad-x)}
+.section{position:relative;padding-block:var(--pad-y);border-bottom:1px solid var(--rule)}
+
+/* A scan bar draws each section's top edge as it enters view. Reuses the existing
+   reveal observer — the .in class is the trigger, no extra JS. Clip-path wipe
+   rather than a travelling element, so nothing can overflow the viewport. */
+.section[data-reveal].in::before,
+.step[data-reveal].in::before{
+  content:"";position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent) 45%,var(--accent) 55%,transparent);
+  box-shadow:0 0 12px 0 rgba(80,220,140,.30);
+  animation:scanWipe 1.15s cubic-bezier(.25,.6,.2,1) forwards;
+  pointer-events:none;z-index:1;
+}
+@keyframes scanWipe{
+  0%  {clip-path:inset(0 100% 0 0);opacity:1}
+  55% {clip-path:inset(0 0 0 0);opacity:1}
+  100%{clip-path:inset(0 0 0 0);opacity:0}
+}
+.eyebrow{
+  font:400 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);
+}
+.lede{color:var(--muted);font-size:18px;line-height:1.6;max-width:33em}
+
+/* ---------- signature: barcode rule ---------- */
+/* Every box Cyclone handles is barcoded and tracked to shelf position.
+   That audit trail is the device the page is built around. */
+.scanline{
+  position:relative;height:2px;border:0;margin:0;
+  background:linear-gradient(90deg,
+    transparent 0%, var(--accent-dim) 12%, var(--accent) 50%,
+    var(--accent-dim) 88%, transparent 100%);
+  box-shadow:0 0 14px 1px rgba(80,220,140,.28);
+}
+.scanline--sweep::after{
+  content:"";position:absolute;top:-1px;bottom:-1px;width:16%;
+  background:linear-gradient(90deg,transparent,#eafff2,transparent);
+  filter:blur(1px);
+  animation:sweep 4.2s var(--ease) infinite;
+}
+@keyframes sweep{
+  0%{left:-16%;opacity:0}
+  12%{opacity:.9}
+  88%{opacity:.9}
+  100%{left:100%;opacity:0}
+}
+
+/* ---------- reveal ---------- */
+[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;font-size:15px;font-weight:600;padding:15px 26px;
+  border-radius:2px;border:1px solid transparent;cursor:pointer;
+  transition:filter .16s var(--ease),border-color .16s var(--ease),background .16s var(--ease);
+}
+.btn--solid{background:var(--accent);color:var(--ink)}
+.btn--solid:hover{filter:brightness(1.12)}
+.btn--ghost{border-color:#2b3a2f;color:var(--text)}
+.btn--ghost:hover{border-color:var(--accent);background:var(--ink-3)}
+.btn--sm{padding:11px 20px;font-size:14px}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:20;
+  border-bottom:1px solid var(--rule);
+  background:rgba(14,18,16,.92);
+  backdrop-filter:blur(8px);
+}
+.site-header__inner{
+  max-width:var(--maxw);margin:0 auto;padding:18px var(--pad-x);
+  display:flex;align-items:center;gap:24px;
+}
+.site-header__logo{height:36px;width:auto;margin-right:auto}
+.nav{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+.nav a{transition:color .14s var(--ease)}
+.nav a:hover{color:var(--accent)}
+.nav__num{font:500 11px/1 var(--mono);color:var(--accent-dim);margin-right:6px}
+.menu-btn{
+  display:none;background:none;border:1px solid var(--rule);border-radius:2px;
+  padding:9px 12px;font:500 12px/1 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);cursor:pointer;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:min(82vh,700px);display:flex;align-items:center;
+  padding:96px var(--pad-x);
+  border-bottom:1px solid var(--rule);
+  /* still frame sits under the video: covers no-JS, reduced-motion and slow loads */
+  background:var(--ink) url("scanner-poster.jpg") center/cover no-repeat;
+}
+.hero__still{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:-4;
+}
+.hero__video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:-2;
+  opacity:1;              /* visible without JS; the script only fades the loop seam */
+  will-change:opacity;    /* both layers animate opacity; keep them off the main raster */
+}
+/* Directional, not flat. The footage is already dark greyscale — it needs shaping,
+   not dimming. Heavy at the left where the copy sits, near-clear at the right so
+   the scan bar reads at full strength. */
+.hero__scrim{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(100deg,
+      rgba(14,18,16,.80) 0%, rgba(14,18,16,.74) 28%,
+      rgba(14,18,16,.46) 55%, rgba(14,18,16,.18) 82%,
+      rgba(14,18,16,.26) 100%),
+    linear-gradient(to top, rgba(14,18,16,.52) 0%, transparent 38%);
+}
+.hero__inner{position:relative;max-width:var(--maxw);width:100%;margin:0 auto;text-align:left}
+.hero__col{max-width:min(700px,64%)}
+.pill{
+  display:inline-flex;align-items:center;gap:10px;
+  font:400 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);border:1px solid #2b3a2f;border-radius:100px;
+  padding:9px 16px;margin-bottom:20px;
+}
+.pill__dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero h1{
+  font-family:var(--display);
+  font-weight:700;
+  /* Bold at display size wants less negative tracking, not more — the
+     letterforms are already close together. */
+  font-size:clamp(38px,6.1vw,68px);
+  /* 1.02, not tighter: this headline breaks with descenders on line one
+     ("you", "keep"), and .96 left only 1.5px before they hit the caps below. */
+  line-height:1.02;
+  letter-spacing:-.03em;
+  text-shadow:0 1px 28px rgba(14,18,16,.60);
+  margin:0 0 12px;
+}
+/* previous setting, one line to revert:
+   .hero h1{font-weight:600;font-size:clamp(38px,6.2vw,70px);
+            line-height:1.0;letter-spacing:-.038em} */
+.hero__col>p{text-shadow:0 1px 18px rgba(14,18,16,.65);margin:0 0 26px;max-width:32em;font-size:18px;line-height:1.5;color:#c4cdc6}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ---------- spec strip ---------- */
+.strip{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--rule);
+  max-width:var(--maxw);margin:0 auto;
+}
+.strip>div{padding:26px 28px;border-right:1px solid var(--rule)}
+.strip>div:last-child{border-right:0}
+.strip__big{font-size:23px;font-weight:600;letter-spacing:-.02em}
+.strip__sub{font:400 12px/1.5 var(--mono);color:var(--faint);margin-top:6px}
+.strip--quiet>div{font:400 12px/1.5 var(--mono);letter-spacing:.04em;color:var(--muted);padding:20px 28px}
+
+/* ---------- process ---------- */
+.step{
+  position:relative;
+  display:grid;grid-template-columns:.45fr .55fr;
+  border-bottom:1px solid var(--rule);
+  max-width:var(--maxw);margin:0 auto;
+}
+.step--flip{grid-template-columns:.55fr .45fr}
+.step--flip .step__body{order:2;border-left:1px solid var(--rule);border-right:0}
+.step--flip .step__shot{order:1;border-left:0}
+.step__body{
+  padding:64px var(--pad-x);display:flex;flex-direction:column;gap:14px;
+}
+.step__num{font:500 40px/1 var(--mono);color:var(--accent-dim)}
+.step__body h2{font-size:clamp(24px,3.2vw,30px)}
+.step__body p{color:var(--muted);line-height:1.65;max-width:28em}
+.step__shot{
+  position:relative;overflow:hidden;
+  border-left:1px solid var(--rule);min-height:280px;
+  display:flex;align-items:flex-end;padding:18px;
+  background:repeating-linear-gradient(135deg,rgba(231,236,232,.05) 0 8px,transparent 8px 16px);
+}
+/* Empty slots only. A scan head tracking down them says "not captured yet" in the
+   page's own vocabulary, and flags which slots still need shooting. A slot with a
+   real photograph gets .step__shot--photo and loses the animation entirely. */
+.step__shot--photo{padding:0;background:none;align-items:stretch}
+.step__shot--photo::after{display:none}
+.step__shot--photo img{width:100%;height:100%;object-fit:cover;display:block}
+.step__shot::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  box-shadow:0 0 14px 1px rgba(80,220,140,.30);
+  animation:platen 4.6s var(--ease) infinite;
+  pointer-events:none;
+}
+@keyframes platen{
+  0%  {top:-2px;opacity:0}
+  8%  {opacity:.55}
+  92% {opacity:.55}
+  100%{top:100%;opacity:0}
+}
+.shot-label{
+  font:400 11px/1 var(--mono);color:var(--faint);
+  background:var(--ink);padding:7px 9px;
+}
+
+/* ---------- reason grid ---------- */
+.reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:40px 56px;margin-top:42px}
+.who{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px;margin-top:34px}
+.who>div{
+  border-top:1px solid var(--rule);padding:15px 0;
+  display:flex;justify-content:space-between;gap:20px;align-items:baseline;
+}
+.who b{font-size:17px;font-weight:600;flex:none}
+.who span{font:400 13px/1.5 var(--mono);color:var(--faint);text-align:right}
+.reason{display:flex;gap:20px;border-top:1px solid var(--rule);padding-top:22px}
+.reason__num{font:500 13px/1.6 var(--mono);color:var(--accent-dim);flex:none}
+.reason h3{font-size:19px;margin-bottom:8px}
+.reason p{color:var(--muted);font-size:16px;line-height:1.62}
+
+/* ---------- cadence ---------- */
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.rows{display:flex;flex-direction:column}
+.rows>div{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--rule);
+}
+.rows>div:last-child{border-bottom:0}
+.rows b{font-size:16px;font-weight:600}
+.rows span{font:400 13px/1.4 var(--mono);color:var(--faint);text-align:right}
+
+/* ---------- cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.cards--4{grid-template-columns:repeat(4,1fr)}
+.card--link{display:block;text-decoration:none}
+.card__num{display:block;font:500 13px/1 var(--mono);color:var(--accent-dim);margin-bottom:12px}
+.card__go{display:block;font:400 12px/1 var(--mono);color:var(--faint);margin-top:16px;transition:color .16s var(--ease)}
+.card--link:hover .card__go{color:var(--accent)}
+.pillar-h{font-size:clamp(26px,4vw,34px);margin:14px 0 10px;max-width:24em}
+.card{
+  border:1px solid var(--rule);border-radius:3px;padding:28px;
+  transition:border-color .18s var(--ease),background .18s var(--ease);
+}
+.card:hover{border-color:var(--rule-2);background:var(--ink-3)}
+.card h3{font-size:19px;margin-bottom:10px}
+.card p{color:var(--muted);font-size:16px;line-height:1.62}
+
+/* ---------- faq ---------- */
+.faq{display:grid;grid-template-columns:.7fr 1.3fr;gap:52px}
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-of-type{border-bottom:1px solid var(--rule)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:20px 0;font-size:17px;font-weight:600;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";font:400 20px/1 var(--mono);color:var(--accent);flex:none;
+  transition:transform .2s var(--ease);
+}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 22px;color:var(--muted);font-size:16px;line-height:1.62;max-width:44em}
+
+/* ---------- contact ---------- */
+.form{display:flex;flex-direction:column;gap:14px}
+.form__pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font:400 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.field input,.field textarea{
+  font-size:16px;   /* 16px minimum, or iOS Safari zooms the page on focus */padding:14px 16px;border:1px solid var(--rule);border-radius:2px;
+  color:var(--text);outline:none;width:100%;
+  /* background-COLOR, not the shorthand — the shorthand would wipe the gradient below */
+  background-color:var(--ink-3);
+  background-image:linear-gradient(90deg,var(--accent),var(--accent));
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  background-size:0% 2px;
+  transition:border-color .16s var(--ease), background-size .4s var(--ease);
+}
+.field input:focus,.field textarea:focus{background-size:100% 2px}
+.field select{
+  font-size:16px;padding:14px 16px;border:1px solid var(--rule);border-radius:2px;
+  background-color:var(--ink-3);color:var(--text);outline:none;width:100%;
+  transition:border-color .16s var(--ease);
+}
+.field select:focus{border-color:var(--accent)}
+.field textarea{resize:vertical;min-height:96px}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+.field input::placeholder,.field textarea::placeholder{color:#5d6a5f}
+.contact__meta{font:400 13px/1.9 var(--mono);color:var(--muted)}
+.contact__meta a:hover{color:var(--accent)}
+
+/* ---------- footer ---------- */
+.site-footer{
+  max-width:var(--maxw);margin:0 auto;padding:26px var(--pad-x);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font:400 12px/1.6 var(--mono);color:var(--faint);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  :root{--pad-x:20px;--pad-y:56px}
+  .nav{
+    display:none;position:absolute;left:0;right:0;top:100%;
+    flex-direction:column;gap:0;
+    background:var(--ink);border-bottom:1px solid var(--rule);
+  }
+  .nav.open{display:flex}
+  .nav a{padding:16px var(--pad-x);border-top:1px solid var(--rule);font-size:15px}
+  .menu-btn{display:block;order:3}
+  .site-header__inner{position:relative;flex-wrap:wrap;padding:14px var(--pad-x)}
+  .header-cta{display:none}
+  /* On narrow screens the cover crop zooms in, so a left-to-right gradient stops
+     working — shade top-down instead and let the footage sit below the copy. */
+  .hero{padding:64px var(--pad-x);min-height:auto}
+  .hero__col{max-width:none}
+  .hero__scrim{
+    background:
+      linear-gradient(to bottom, rgba(14,18,16,.86) 0%, rgba(14,18,16,.72) 46%,
+                      rgba(14,18,16,.34) 74%, rgba(14,18,16,.48) 100%);
+  }
+  .strip{grid-template-columns:1fr 1fr}
+  .strip>div:nth-child(2n){border-right:0}
+  .strip>div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .step,.step--flip{grid-template-columns:1fr}
+  .step--flip .step__body,.step--flip .step__shot{order:0}
+  .step__body{padding:48px var(--pad-x)}
+  .step__shot,.step--flip .step__body{border-left:0;border-top:1px solid var(--rule)}
+  .step__shot{min-height:200px}
+  .reasons,.split,.faq,.cards,.form__pair{grid-template-columns:1fr;gap:26px}
+  .who{grid-template-columns:1fr;gap:0}
+  .who span{text-align:left}
+  .reasons{gap:28px}
+  .cards{gap:14px}
+  .form__pair{gap:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  .hero__video{display:none}
+  .scanline--sweep::after{animation:none;display:none}
+  .section[data-reveal].in::before,.step[data-reveal].in::before{animation:none;display:none}
+  .step__shot::after{animation:none;display:none}
+  .field input,.field textarea{transition:border-color .16s var(--ease)}
+}
+
+
+/* ---------- multipage additions ---------- */
+/* Service pages open with a text hero rather than the video, so the homepage
+   keeps the one moving thing on the site. */
+.page-hero{
+  padding:96px 0 84px;border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%);
+}
+.page-hero h1{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(34px,5.2vw,58px);line-height:1.03;letter-spacing:-.026em;
+  margin:14px 0 18px;max-width:22em;
+}
+.page-hero .lede{max-width:34em}
+.nav a.is-current{color:var(--accent)}
+@media (max-width:900px){
+  .page-hero{padding:56px 0 52px}
+}
