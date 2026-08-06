@@ -190,9 +190,11 @@ button,input,textarea{font:inherit;color:inherit}
   /* Bold at display size wants less negative tracking, not more — the
      letterforms are already close together. */
   font-size:clamp(38px,6.1vw,68px);
-  /* 1.02, not tighter: this headline breaks with descenders on line one
-     ("you", "keep"), and .96 left only 1.5px before they hit the caps below. */
-  line-height:1.02;
+  /* .96 is safe for the current homepage headline because neither line carries a
+     descender. Re-check this if the copy changes — at 68px, a g/j/p/q/y on line
+     one leaves only 1.5px before it meets the caps below. Service-page headings
+     use .page-hero h1, which is set separately at 1.03. */
+  line-height:.96;
   letter-spacing:-.03em;
   text-shadow:0 1px 28px rgba(14,18,16,.60);
   margin:0 0 12px;
