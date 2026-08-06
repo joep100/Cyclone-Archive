@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: cyclone-archive 2026-08-05 · multipage rev-22 -->
+<!-- build: cyclone-archive 2026-08-05 · multipage rev-31 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -62,6 +62,26 @@
           <div><b>Retention</b><span>held until you confirm otherwise</span></div>
           <div><b>Boxes</b><span>&euro;39.50 + VAT per pack of ten,<br>delivered anywhere in Ireland</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="boxes" class="section" data-reveal aria-labelledby="box-h">
+    <div class="wrap split" style="align-items:center">
+      <div>
+        <p class="eyebrow">Boxes</p>
+        <h2 id="box-h" class="pillar-h" style="margin-bottom:14px">Use your own, or buy ours</h2>
+        <p class="lede">Flat-packed archive boxes with lids, delivered anywhere in Ireland. Each one is barcoded at your premises when we collect, so tracking starts before the box leaves your building.</p>
+      </div>
+      <div class="card price-card">
+        <p class="price">&euro;39.50 <span>+ VAT</span></p>
+        <p class="price__sub">per pack of ten &mdash; &euro;3.95 a box</p>
+        <div class="rows">
+          <div><b>Flat-packed</b><span>supplied with lids</span></div>
+          <div><b>Delivery</b><span>anywhere in Ireland</span></div>
+          <div><b>Tracking</b><span>barcoded on collection</span></div>
+        </div>
+        <a class="btn btn--solid" href="#quote" data-preselect="Boxes only" style="margin-top:24px">Order boxes</a>
       </div>
     </div>
   </section>
@@ -156,6 +176,7 @@
             <option selected>Storage</option>
             <option>Retrieval from storage</option>
             <option>Shredding</option>
+            <option>Boxes only</option>
             <option>More than one of these</option>
             <option>Not sure yet</option>
           </select>
@@ -321,6 +342,16 @@
   nav.addEventListener('click', function(e){ if(e.target.tagName === 'A') close(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
 })();
+</script>
+<script>
+// "Order boxes" jumps to the form and picks the matching service, so nobody has
+// to set the dropdown themselves after clicking a button that already said it.
+document.querySelectorAll('[data-preselect]').forEach(function(a){
+  a.addEventListener('click', function(){
+    var sel = document.getElementById('f-service');
+    if(sel) sel.value = a.getAttribute('data-preselect');
+  });
+});
 </script>
 </body>
 </html>

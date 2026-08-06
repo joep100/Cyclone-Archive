@@ -16,7 +16,7 @@
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 
   --pad-x:52px;
-  --pad-y:84px;
+  --pad-y:60px;
   --maxw:1180px;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
@@ -267,10 +267,10 @@ button,input,textarea{font:inherit;color:inherit}
 }
 
 /* ---------- reason grid ---------- */
-.reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:40px 56px;margin-top:42px}
-.who{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px;margin-top:34px}
+.reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:34px 56px;margin-top:30px}
+.who{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px;margin-top:26px}
 .who>div{
-  border-top:1px solid var(--rule);padding:15px 0;
+  border-top:1px solid var(--rule);padding:12px 0;
   display:flex;justify-content:space-between;gap:20px;align-items:baseline;
 }
 .who b{font-size:17px;font-weight:600;flex:none}
@@ -281,18 +281,18 @@ button,input,textarea{font:inherit;color:inherit}
 .reason p{color:var(--muted);font-size:16px;line-height:1.62}
 
 /* ---------- cadence ---------- */
-.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
 .rows{display:flex;flex-direction:column}
 .rows>div{
   display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-  padding:16px 0;border-bottom:1px solid var(--rule);
+  padding:13px 0;border-bottom:1px solid var(--rule);
 }
 .rows>div:last-child{border-bottom:0}
 .rows b{font-size:16px;font-weight:600}
 .rows span{font:400 13px/1.4 var(--mono);color:var(--faint);text-align:right}
 
 /* ---------- cards ---------- */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
 .cards--4{grid-template-columns:repeat(4,1fr)}
 .card--link{display:block;text-decoration:none}
 .card__num{display:block;font:500 13px/1 var(--mono);color:var(--accent-dim);margin-bottom:12px}
@@ -361,7 +361,7 @@ button,input,textarea{font:inherit;color:inherit}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  :root{--pad-x:20px;--pad-y:56px}
+  :root{--pad-x:20px;--pad-y:44px}
   .nav{
     display:none;position:absolute;left:0;right:0;top:100%;
     flex-direction:column;gap:0;
@@ -412,7 +412,7 @@ button,input,textarea{font:inherit;color:inherit}
 /* Service pages open with a text hero rather than the video, so the homepage
    keeps the one moving thing on the site. */
 .page-hero{
-  padding:96px 0 84px;border-bottom:1px solid var(--rule);
+  padding:72px 0 60px;border-bottom:1px solid var(--rule);
   background:linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%);
 }
 .page-hero h1{
@@ -423,5 +423,15 @@ button,input,textarea{font:inherit;color:inherit}
 .page-hero .lede{max-width:34em}
 .nav a.is-current{color:var(--accent)}
 @media (max-width:900px){
-  .page-hero{padding:56px 0 52px}
+  .page-hero{padding:48px 0 44px}
 }
+
+/* ---------- box supply price card ---------- */
+.price-card{display:flex;flex-direction:column;align-items:flex-start}
+.price{
+  font-family:var(--display);font-weight:600;font-size:40px;line-height:1;
+  letter-spacing:-.026em;margin-bottom:8px;
+}
+.price span{font:400 15px/1 var(--mono);color:var(--faint);letter-spacing:0}
+.price__sub{font:400 13px/1.5 var(--mono);color:var(--faint);margin-bottom:22px}
+.price-card .rows{width:100%}
