@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: cyclone-archive 2026-08-05 · multipage rev-40 -->
+<!-- build: cyclone-archive 2026-08-05 · multipage rev-41 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -321,17 +321,39 @@
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
 })();
 
-// Logo scan: runs once per session, not once per page. Four pages animating the
-// logo on every load would wear thin quickly.
+// Logo scan. Runs once per session on load — four pages animating the logo on
+// every load would wear thin. Clicking the logo replays it, which also gives the
+// link something to do on the page it already points at.
 (function(){
   var m=document.getElementById('logoMark');
   if(!m) return;
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function play(){
+    m.classList.remove('is-scanning');
+    void m.offsetWidth;                 // force a reflow so the animation restarts
+    m.classList.add('is-scanning');
+  }
+
   var seen=false;
   try{ seen = sessionStorage.getItem('cyc-logo-scan')==='1'; }catch(e){}
-  if(seen) return;
-  try{ sessionStorage.setItem('cyc-logo-scan','1'); }catch(e){}
-  window.setTimeout(function(){ m.classList.add('is-scanning'); }, 400);
+  if(!seen){
+    try{ sessionStorage.setItem('cyc-logo-scan','1'); }catch(e){}
+    window.setTimeout(play, 400);
+  }
+
+  // On the homepage the logo link goes nowhere useful, so replay instead of
+  // reloading. Elsewhere it still navigates home.
+  var link=m.closest('a');
+  if(link){
+    link.addEventListener('click', function(e){
+      var p=location.pathname;
+      if(p==='/' || p==='/index.html' || p.endsWith('/index.html')){
+        e.preventDefault();
+        play();
+      }
+    });
+  }
 })();
 </script>
 </body>

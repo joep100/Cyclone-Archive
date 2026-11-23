@@ -193,9 +193,13 @@ button,input,textarea{font:inherit;color:inherit}
   0%{top:0} 19%{top:0} 50%{top:100%} 57%{top:100%} 90%{top:0} 100%{top:0}
 }
 @keyframes logoRead{
+  /* The trail always follows the beam. Going DOWN, the bottom inset shrinks, so
+     yellow fills from the top. Coming UP, the bottom inset grows again, so white
+     returns from the bottom. Previously the return clipped from the top, which
+     meant the colour changed at the opposite end from the beam. */
   0%{clip-path:inset(0 0 100% 0)} 19%{clip-path:inset(0 0 100% 0)}
   50%{clip-path:inset(0 0 0 0)} 57%{clip-path:inset(0 0 0 0)}
-  90%{clip-path:inset(100% 0 0 0)} 100%{clip-path:inset(100% 0 0 0)}
+  90%{clip-path:inset(0 0 100% 0)} 100%{clip-path:inset(0 0 100% 0)}
 }
 @keyframes logoFlicker{
   0%{opacity:0} 3%{opacity:1} 7%{opacity:.18} 11%{opacity:1} 15%{opacity:.38}
