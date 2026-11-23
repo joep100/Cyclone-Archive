@@ -142,7 +142,69 @@ button,input,textarea{font:inherit;color:inherit}
   max-width:var(--maxw);margin:0 auto;padding:18px var(--pad-x);
   display:flex;align-items:center;gap:24px;
 }
-.site-header__logo{height:36px;width:auto;margin-right:auto}
+/* ---------- logo: wordmark with a scan pass ---------- */
+/* Two stacked wordmarks, white over yellow. A lamp travels down turning the word
+   yellow, then back up restoring it — so the resting state is the normal logo and
+   the scan is an event, not a permanent change. */
+.site-header__logo{--h:36px;position:relative;display:inline-block;line-height:0;margin-right:auto}
+.site-header__logo img{display:block;height:var(--h);width:auto}
+.logo__read{position:absolute;inset:0;height:100%;width:auto;clip-path:inset(0 0 100% 0)}
+.logo__beam{
+  position:absolute;left:-7%;right:-7%;top:0;
+  height:max(1px, calc(var(--h) * 0.035));
+  filter:drop-shadow(0 0 calc(var(--h) * 0.14) rgba(255,204,0,.85));
+  opacity:0;pointer-events:none;
+}
+/* two segment layers, each with uneven runs and its own blink period, so the lamp
+   looks patchy rather than patterned — and nothing slides sideways */
+.logo__beam::before,.logo__beam::after{content:"";position:absolute;inset:0}
+.logo__beam::before{
+  background:linear-gradient(90deg,
+    rgba(255,204,0,1) 0.0%, rgba(255,204,0,1) 11.0%, rgba(255,204,0,0) 11.0%,
+    rgba(255,204,0,0) 18.0%, rgba(255,204,0,1) 18.0%, rgba(255,204,0,1) 24.0%,
+    rgba(255,204,0,0) 24.0%, rgba(255,204,0,0) 25.0%, rgba(255,204,0,1) 25.0%,
+    rgba(255,204,0,1) 36.0%, rgba(255,204,0,0) 36.0%, rgba(255,204,0,0) 39.0%,
+    rgba(255,204,0,1) 39.0%, rgba(255,204,0,1) 55.0%, rgba(255,204,0,0) 55.0%,
+    rgba(255,204,0,0) 59.0%, rgba(255,204,0,1) 59.0%, rgba(255,204,0,1) 72.0%,
+    rgba(255,204,0,0) 72.0%, rgba(255,204,0,0) 74.0%, rgba(255,204,0,1) 74.0%,
+    rgba(255,204,0,1) 83.0%, rgba(255,204,0,0) 83.0%, rgba(255,204,0,0) 85.0%,
+    rgba(255,204,0,1) 85.0%, rgba(255,204,0,1) 100%);
+}
+.logo__beam::after{
+  background:linear-gradient(90deg,
+    rgba(255,204,0,1) 0.0%, rgba(255,204,0,1) 16.0%, rgba(255,204,0,0) 16.0%,
+    rgba(255,204,0,0) 18.0%, rgba(255,204,0,1) 18.0%, rgba(255,204,0,1) 27.0%,
+    rgba(255,204,0,0) 27.0%, rgba(255,204,0,0) 29.0%, rgba(255,204,0,1) 29.0%,
+    rgba(255,204,0,1) 45.0%, rgba(255,204,0,0) 45.0%, rgba(255,204,0,0) 49.0%,
+    rgba(255,204,0,1) 49.0%, rgba(255,204,0,1) 60.0%, rgba(255,204,0,0) 60.0%,
+    rgba(255,204,0,0) 64.0%, rgba(255,204,0,1) 64.0%, rgba(255,204,0,1) 75.0%,
+    rgba(255,204,0,0) 75.0%, rgba(255,204,0,0) 78.0%, rgba(255,204,0,1) 78.0%,
+    rgba(255,204,0,1) 82.0%, rgba(255,204,0,0) 82.0%, rgba(255,204,0,0) 89.0%,
+    rgba(255,204,0,1) 89.0%, rgba(255,204,0,1) 98.0%, rgba(255,204,0,0) 98.0%,
+    rgba(255,204,0,0) 100%);
+}
+.site-header__logo.is-scanning .logo__read{animation:logoRead 5.2s cubic-bezier(.45,0,.55,1) forwards}
+.site-header__logo.is-scanning .logo__beam{animation:logoTravel 5.2s cubic-bezier(.45,0,.55,1) forwards,
+                                                     logoFlicker 5.2s linear forwards}
+.site-header__logo.is-scanning .logo__beam::before{animation:logoWinkA .62s steps(1,end) infinite}
+.site-header__logo.is-scanning .logo__beam::after {animation:logoWinkB .47s steps(1,end) infinite}
+
+@keyframes logoTravel{
+  0%{top:0} 19%{top:0} 50%{top:100%} 57%{top:100%} 90%{top:0} 100%{top:0}
+}
+@keyframes logoRead{
+  0%{clip-path:inset(0 0 100% 0)} 19%{clip-path:inset(0 0 100% 0)}
+  50%{clip-path:inset(0 0 0 0)} 57%{clip-path:inset(0 0 0 0)}
+  90%{clip-path:inset(100% 0 0 0)} 100%{clip-path:inset(100% 0 0 0)}
+}
+@keyframes logoFlicker{
+  0%{opacity:0} 3%{opacity:1} 7%{opacity:.18} 11%{opacity:1} 15%{opacity:.38}
+  19%{opacity:1} 34%{opacity:1} 38%{opacity:.28} 43%{opacity:1} 58%{opacity:1}
+  62%{opacity:.32} 67%{opacity:1} 80%{opacity:1} 84%{opacity:.25} 89%{opacity:1}
+  97%{opacity:.5} 100%{opacity:0}
+}
+@keyframes logoWinkA{0%{opacity:1} 34%{opacity:.25} 67%{opacity:.85} 100%{opacity:1}}
+@keyframes logoWinkB{0%{opacity:.55} 29%{opacity:1} 58%{opacity:.15} 100%{opacity:.8}}
 .nav{display:flex;gap:26px;font-size:14px;color:var(--muted)}
 .nav a{transition:color .14s var(--ease)}
 .nav a:hover{color:var(--accent)}
@@ -185,16 +247,13 @@ button,input,textarea{font:inherit;color:inherit}
    the scan bar reads at full strength. */
 .hero__scrim{
   position:absolute;inset:0;z-index:-1;
-  /* Two layers, so remember they COMPOUND: combined alpha is a1 + a2·(1−a1).
-     The bottom-up layer is kept light for that reason — at .52 it was dragging
-     the right-hand side down to 39% visible even where the horizontal layer
-     had already cleared. */
-  background:
-    linear-gradient(100deg,
-      rgba(14,18,16,.72) 0%, rgba(14,18,16,.66) 26%,
-      rgba(14,18,16,.34) 52%, rgba(14,18,16,.08) 72%,
-      rgba(14,18,16,.14) 100%),
-    linear-gradient(to top, rgba(14,18,16,.32) 0%, transparent 32%);
+  /* One layer, straight 90deg. The old version was angled at 100deg and carried a
+     second bottom-up gradient, which compounded in the bottom corners and made a
+     horizontal wash read as a vertical one. */
+  background:linear-gradient(90deg,
+    rgba(14,18,16,.72) 0%, rgba(14,18,16,.66) 26%,
+    rgba(14,18,16,.34) 52%, rgba(14,18,16,.08) 72%,
+    rgba(14,18,16,.14) 100%);
 }
 .hero__inner{position:relative;max-width:var(--maxw);width:100%;margin:0 auto;text-align:left}
 .hero__col{max-width:min(700px,64%)}
@@ -418,6 +477,8 @@ button,input,textarea{font:inherit;color:inherit}
   html{scroll-behavior:auto}
   [data-reveal]{opacity:1;transform:none;transition:none}
   .hero__video{display:none}
+  .logo__beam{display:none}
+  .site-header__logo.is-scanning .logo__read{animation:none}
   .scanline--sweep::after{animation:none;display:none}
   .section[data-reveal].in::before,.step[data-reveal].in::before{animation:none;display:none}
   .step__shot::after{animation:none;display:none}
