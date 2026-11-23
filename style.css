@@ -122,15 +122,28 @@ button,input,textarea{font:inherit;color:inherit}
 [data-reveal].in{opacity:1;transform:none}
 
 /* ---------- buttons ---------- */
+/* Outlined at rest with a blinking indicator; the fill only arrives on hover.
+   Same 1.4s hard blink as the hero pill, so the page keeps one rhythm. */
 .btn{
-  display:inline-block;font-size:15px;font-weight:600;padding:15px 26px;
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:600;padding:15px 24px;
   border-radius:2px;border:1px solid transparent;cursor:pointer;
-  transition:filter .16s var(--ease),border-color .16s var(--ease),background .16s var(--ease);
+  background:transparent;color:var(--text);
+  transition:border-color .18s var(--ease),background .18s var(--ease),color .18s var(--ease);
 }
-.btn--solid{background:var(--accent);color:var(--ink)}
-.btn--solid:hover{filter:brightness(1.12)}
-.btn--ghost{border-color:#3e370d;color:var(--text)}
-.btn--ghost:hover{border-color:var(--accent);background:var(--ink-3)}
+.btn::before{
+  content:"";width:6px;height:6px;border-radius:50%;flex:none;
+  background:var(--accent);
+  animation:btnBlink 1.4s steps(1,end) infinite;
+}
+@keyframes btnBlink{0%,55%{opacity:1} 56%,100%{opacity:.18}}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+/* the dot has to invert on the fill, or it vanishes into it */
+.btn:hover::before{background:var(--ink)}
+/* the primary keeps a brighter outline so it still reads as the first choice */
+.btn--solid{border-color:var(--accent)}
+.btn--ghost{border-color:#3e370d}
+.btn--ghost:hover{border-color:var(--accent)}
 .btn--sm{padding:11px 20px;font-size:14px}
 
 /* ---------- header ---------- */
@@ -491,6 +504,7 @@ button,input,textarea{font:inherit;color:inherit}
   .hero__video{display:none}
   .logo__beam{display:none}
   .pill__dot{animation:none;opacity:1}
+  .btn::before{animation:none;opacity:1}
   .site-header__logo.is-scanning .logo__read{animation:none}
   .scanline--sweep::after{animation:none;display:none}
   .section[data-reveal].in::before,.step[data-reveal].in::before{animation:none;display:none}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: cyclone-archive 2026-08-05 · multipage rev-41 -->
+<!-- build: cyclone-archive 2026-08-05 · multipage rev-44 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#0e1210">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600&family=JetBrains+Mono:wght@400;500&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ---------- tokens ---------- */
 :root{
@@ -28,7 +28,9 @@
   /* Inter is a UI face — right for headings, buttons and labels, dense at
      paragraph length. Open Sans carries running text. */
   --body:'Open Sans',system-ui,Helvetica,Arial,sans-serif;
-  --display:'Inter',system-ui,Helvetica,Arial,sans-serif;
+  /* Inter Tight is a separate family, not a setting — Inter drawn with tighter
+     default spacing for headlines. Matches the courier site's display face. */
+  --display:'Inter Tight','Inter',system-ui,Helvetica,Arial,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 
   --pad-x:52px;
@@ -133,15 +135,28 @@ button,input,textarea{font:inherit;color:inherit}
 [data-reveal].in{opacity:1;transform:none}
 
 /* ---------- buttons ---------- */
+/* Outlined at rest with a blinking indicator; the fill only arrives on hover.
+   Same 1.4s hard blink as the hero pill, so the page keeps one rhythm. */
 .btn{
-  display:inline-block;font-size:15px;font-weight:600;padding:15px 26px;
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:600;padding:15px 24px;
   border-radius:2px;border:1px solid transparent;cursor:pointer;
-  transition:filter .16s var(--ease),border-color .16s var(--ease),background .16s var(--ease);
+  background:transparent;color:var(--text);
+  transition:border-color .18s var(--ease),background .18s var(--ease),color .18s var(--ease);
 }
-.btn--solid{background:var(--accent);color:var(--ink)}
-.btn--solid:hover{filter:brightness(1.12)}
-.btn--ghost{border-color:#3e370d;color:var(--text)}
-.btn--ghost:hover{border-color:var(--accent);background:var(--ink-3)}
+.btn::before{
+  content:"";width:6px;height:6px;border-radius:50%;flex:none;
+  background:var(--accent);
+  animation:btnBlink 1.4s steps(1,end) infinite;
+}
+@keyframes btnBlink{0%,55%{opacity:1} 56%,100%{opacity:.18}}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+/* the dot has to invert on the fill, or it vanishes into it */
+.btn:hover::before{background:var(--ink)}
+/* the primary keeps a brighter outline so it still reads as the first choice */
+.btn--solid{border-color:var(--accent)}
+.btn--ghost{border-color:#3e370d}
+.btn--ghost:hover{border-color:var(--accent)}
 .btn--sm{padding:11px 20px;font-size:14px}
 
 /* ---------- header ---------- */
@@ -280,18 +295,24 @@ button,input,textarea{font:inherit;color:inherit}
   color:var(--accent);border:1px solid #3e370d;border-radius:100px;
   padding:9px 16px;margin-bottom:20px;
 }
-.pill__dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.pill__dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  /* Hard on/off rather than a fade — steps(1) makes it read as an indicator
+     light rather than something breathing. 1.4s, so it is under one blink per
+     second and nowhere near the flash threshold. */
+  animation:pillBlink 1.4s steps(1,end) infinite;
+}
+@keyframes pillBlink{0%,55%{opacity:1} 56%,100%{opacity:.18}}
 .hero h1{
   font-family:var(--display);
-  font-weight:700;
-  /* Bold at display size wants less negative tracking, not more — the
-     letterforms are already close together. */
+  font-weight:600;
+  /* 600, matching the courier site. Inter Tight at 600 carries enough weight at
+     display size that 700 reads heavy. */
   /* This headline is a sentence, not a slogan: it breaks to three lines and
      carries descenders on the first two, so it needs a smaller size and looser
      leading than a short headline would. .96 would collide here. */
   font-size:clamp(34px,5.4vw,62px);
   line-height:1.04;
-  letter-spacing:-.03em;
+  letter-spacing:-.035em;
   text-shadow:0 1px 30px rgba(14,18,16,.74);
   margin:0 0 12px;
 }
@@ -495,6 +516,8 @@ button,input,textarea{font:inherit;color:inherit}
   [data-reveal]{opacity:1;transform:none;transition:none}
   .hero__video{display:none}
   .logo__beam{display:none}
+  .pill__dot{animation:none;opacity:1}
+  .btn::before{animation:none;opacity:1}
   .site-header__logo.is-scanning .logo__read{animation:none}
   .scanline--sweep::after{animation:none;display:none}
   .section[data-reveal].in::before,.step[data-reveal].in::before{animation:none;display:none}
