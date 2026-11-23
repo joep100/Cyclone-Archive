@@ -105,11 +105,14 @@ button,input,textarea{font:inherit;color:inherit}
   box-shadow:0 0 14px 1px rgba(255,204,0,.26);
 }
 .scanline--sweep::after{
-  content:"";position:absolute;top:-1px;bottom:-1px;width:16%;
+  content:"";position:absolute;top:-2px;bottom:-2px;width:18%;
   background:linear-gradient(90deg,transparent,#fff6d6,transparent);
-  filter:blur(1px);
+  filter:blur(1.5px);
   animation:sweep 4.2s var(--ease) infinite;
 }
+/* staggered, so several dividers on one page do not sweep in unison */
+.scanline--sweep:nth-of-type(2n)::after{animation-delay:-1.4s}
+.scanline--sweep:nth-of-type(3n)::after{animation-delay:-2.8s}
 @keyframes sweep{
   0%{left:-16%;opacity:0}
   12%{opacity:.9}

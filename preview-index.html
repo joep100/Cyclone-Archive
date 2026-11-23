@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: cyclone-archive 2026-08-05 · multipage rev-44 -->
+<!-- build: cyclone-archive 2026-08-05 · multipage rev-45 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -118,11 +118,14 @@ button,input,textarea{font:inherit;color:inherit}
   box-shadow:0 0 14px 1px rgba(255,204,0,.26);
 }
 .scanline--sweep::after{
-  content:"";position:absolute;top:-1px;bottom:-1px;width:16%;
+  content:"";position:absolute;top:-2px;bottom:-2px;width:18%;
   background:linear-gradient(90deg,transparent,#fff6d6,transparent);
-  filter:blur(1px);
+  filter:blur(1.5px);
   animation:sweep 4.2s var(--ease) infinite;
 }
+/* staggered, so several dividers on one page do not sweep in unison */
+.scanline--sweep:nth-of-type(2n)::after{animation-delay:-1.4s}
+.scanline--sweep:nth-of-type(3n)::after{animation-delay:-2.8s}
 @keyframes sweep{
   0%{left:-16%;opacity:0}
   12%{opacity:.9}
@@ -663,7 +666,7 @@ button,input,textarea{font:inherit;color:inherit}
         <div><b>Property &amp; letting agents</b><span>leases, deeds, tenancy records</span></div>
         <div><b>Food &amp; pharma manufacturers</b><span>batch records, traceability</span></div>
       </div>
-      <hr class="scanline" style="margin-top:52px" aria-hidden="true">
+      <hr class="scanline scanline--sweep" style="margin-top:52px" aria-hidden="true">
     </div>
   </section>
 
@@ -746,7 +749,7 @@ button,input,textarea{font:inherit;color:inherit}
 
 </main>
 
-<hr class="scanline" aria-hidden="true">
+<hr class="scanline scanline--sweep" aria-hidden="true">
 
 <footer class="site-footer">
   <span>Cyclone Group 2025 &middot; Reg. No 274682 &middot; VAT No. 4869044E</span>
