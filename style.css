@@ -647,6 +647,7 @@ button,input,textarea{font:inherit;color:inherit}
    storage page. Yellow survives only as a fill, since #ffcc00 is 1.2:1 on this
    ground — accent text has to darken to a gold. */
 .hero--light{
+  width:100%;
   aspect-ratio:1920 / 1171;
   min-height:520px;
   max-height:820px;
@@ -816,7 +817,15 @@ button,input,textarea{font:inherit;color:inherit}
    shadow runs 11-28% across at 0.13-0.20, so the copy sits inside it and the ink
    only ramps in past 28% where the sunlit floor starts. The window is kept — it is
    the best thing in the frame — and the copy simply begins to its right. */
-.hero--filing{aspect-ratio:1920 / 1072;min-height:560px;max-height:900px}
+.hero--filing{
+  /* width:100% is load-bearing. With aspect-ratio and max-height alone, once the
+     cap bites the browser derives the WIDTH from the capped height — 900 x 1.791
+     = 1612px — and the hero stops short of the viewport. Making the width definite
+     means the ratio only governs height, and max-height simply clamps it. */
+  width:100%;
+  aspect-ratio:1920 / 1072;
+  min-height:560px;max-height:900px;
+}
 .hero--filing .hero__still{object-position:50% 50%}
 .hero--filing .hero__col{margin-left:9%;max-width:min(430px,31%)}
 .hero--filing .hero__col>p{max-width:none;font-size:17px;line-height:1.5}
