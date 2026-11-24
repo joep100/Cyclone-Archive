@@ -601,7 +601,12 @@ button,input,textarea{font:inherit;color:inherit}
 .marquee{
   position:relative;overflow:hidden;
   border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
-  background:var(--ink-2);padding:22px 0;
+  background:var(--ink-2);
+  /* More room inside the band, and a clear gap before the strip below. The two
+     were sharing a single hairline with 22px either side, which read as one
+     crowded block rather than two sections. */
+  padding:30px 0 32px;
+  margin-bottom:34px;
 }
 /* fade the ends so names enter and leave rather than being chopped */
 .marquee::before,.marquee::after{
@@ -629,7 +634,7 @@ button,input,textarea{font:inherit;color:inherit}
   .marquee__row:last-child{display:none}
 }
 @media (max-width:760px){
-  .marquee{padding:16px 0}
+  .marquee{padding:22px 0 24px;margin-bottom:24px}
   .marquee__row{gap:38px;padding:0 19px}
   .marquee__item{font-size:14px}
 }
