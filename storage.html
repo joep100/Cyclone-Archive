@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: cyclone-archive 2026-08-05 · multipage rev-46 -->
+<!-- build: cyclone-archive 2026-08-05 · multipage rev-71 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -32,20 +32,27 @@
     </nav>
     <a class="header-tel" href="tel:+35318140734">+353 1 8140734</a>
     <button class="menu-btn" id="menuBtn" aria-controls="nav" aria-expanded="false">Menu</button>
-    <a class="btn btn--solid btn--sm header-cta" href="#quote">Get a quote</a>
+    <a class="btn btn--solid btn--sm header-cta" href="#quote"><i class="btn__dot" aria-hidden="true"></i><span>Get a quote</span></a>
   </div>
 </header>
 
 <main id="main">
 
-  <section class="page-hero" data-reveal>
+  <section class="page-hero page-hero--shot" data-reveal>
+    <picture>
+      <source media="(max-width:760px)" srcset="aisle-boxes-sm.webp" type="image/webp">
+      <source media="(max-width:760px)" srcset="aisle-boxes-sm.jpg">
+      <source srcset="aisle-boxes.webp" type="image/webp">
+      <img class="page-hero__still" src="aisle-boxes.jpg" alt="" aria-hidden="true" width="1920" height="1072">
+    </picture>
+    <div class="page-hero__scrim"></div>
     <div class="wrap">
       <p class="eyebrow">02 &middot; Storage</p>
       <h1>Out of the office, not out of reach</h1>
       <p class="lede">Records you are obliged to hold but have no room for &mdash; kept at our purpose-built facility and barcoded to a shelf position, for as long as you need them.</p>
       <div class="hero__cta" style="margin-top:30px">
-        <a class="btn btn--solid" href="#quote">Get a storage quote</a>
-        <a class="btn btn--ghost" href="index.html">All four services</a>
+        <a class="btn btn--solid" href="#quote"><i class="btn__dot" aria-hidden="true"></i><span>Get a storage quote</span></a>
+        <a class="btn btn--ghost" href="index.html"><i class="btn__dot" aria-hidden="true"></i><span>All four services</span></a>
       </div>
     </div>
   </section>
@@ -85,7 +92,7 @@
           <div><b>Delivery</b><span>anywhere in Ireland</span></div>
           <div><b>Tracking</b><span>barcoded on collection</span></div>
         </div>
-        <a class="btn btn--solid" href="#quote" data-preselect="Boxes only" style="margin-top:24px">Order boxes</a>
+        <a class="btn btn--solid" href="#quote" data-preselect="Boxes only" style="margin-top:24px"><i class="btn__dot" aria-hidden="true"></i><span>Order boxes</span></a>
       </div>
     </div>
   </section>
@@ -193,7 +200,7 @@
           <label for="f-message">Message</label>
           <textarea id="f-message" name="message" rows="3"></textarea>
         </div>
-        <button class="btn btn--solid" type="submit" style="align-self:flex-start">Request a call back</button>
+        <button class="btn btn--solid" type="submit" style="align-self:flex-start"><i class="btn__dot" aria-hidden="true"></i><span>Request a call back</span></button>
       </form>
     </div>
   </section>
