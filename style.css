@@ -280,11 +280,12 @@ button,input,textarea{font:inherit;color:inherit}
 .hero__inner{position:relative;max-width:var(--maxw);width:100%;margin:0 auto;text-align:left}
 .hero__col{max-width:min(700px,64%)}
 .pill{
-  display:inline-flex;align-items:center;gap:10px;
-  font:400 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:8px;
+  font:400 11px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;
   color:var(--accent);border:1px solid #3e370d;border-radius:100px;
-  padding:9px 16px;margin-bottom:20px;
+  padding:7px 13px;margin-bottom:20px;
 }
+.pill__dot{width:5px;height:5px}
 .pill__dot{width:6px;height:6px;border-radius:50%;background:var(--accent);
   /* Hard on/off rather than a fade — steps(1) makes it read as an indicator
      light rather than something breathing. 1.4s, so it is under one blink per
@@ -543,3 +544,92 @@ button,input,textarea{font:inherit;color:inherit}
 .price span{font:400 15px/1 var(--mono);color:var(--faint);letter-spacing:0}
 .price__sub{font:400 13px/1.5 var(--mono);color:var(--faint);margin-bottom:22px}
 .price-card .rows{width:100%}
+
+
+/* ================= full-strength light hero =================
+   The hero inverts: a bright, still photograph of a vacated office, dark text,
+   and a WHITE scrim instead of a dark one. The facility footage moves to the
+   storage page. Yellow survives only as a fill, since #ffcc00 is 1.2:1 on this
+   ground — accent text has to darken to a gold. */
+.hero--light{
+  /* Hero takes the image's own ratio so nothing crops; min-height protects the
+     copy at narrow widths, max-height stops it dominating very wide screens.
+     The cabinet sits in the right 44%, so the copy column never overlaps it. */
+  aspect-ratio:1920 / 873;
+  min-height:560px;
+  max-height:820px;
+}
+.hero--light .hero__still{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-4;
+  /* Anchored near the top. The cabinet tops sit only 60px from the crop's upper
+     edge, so any crop taken from above removes them; the carpet below has more
+     to spare. Earlier values of 70% and 92% both ate the tops. */
+  object-position:50% 100%;
+}
+.hero--light .hero__scrim{
+  /* Ink, not white — the copy side goes dark so the yellow headline reads and the
+     hero stops being a pale monochrome band. Clears by 80% so the cabinet keeps
+     its daylight. */
+  background:linear-gradient(90deg,
+    rgba(14,18,16,.94) 0%, rgba(14,18,16,.90) 24%,
+    rgba(14,18,16,.72) 42%, rgba(14,18,16,.34) 56%,
+    rgba(14,18,16,.08) 68%, rgba(14,18,16,0) 80%);
+}
+.hero--light h1{color:#141715;text-shadow:none}
+.hero--light .hero__col>p{color:#3f443e;text-shadow:none}
+/* With an ink gradient under the copy, the hero needs no special-case colours:
+   the pill, buttons and dots use the site's normal dark-ground treatment, and the
+   headline is full #ffcc00 — about 6:1 over 0.94 ink. */
+.hero--light h1{color:var(--accent);text-shadow:none}
+.hero--light .hero__col>p{color:#c2c9c3;text-shadow:none}
+.hero--light .pill{color:var(--accent);border-color:#3e370d;background:none}
+.hero--light .pill__dot{background:var(--accent)}
+.hero--light .btn{background:none;color:var(--text)}
+.hero--light .btn--solid{border-color:var(--accent)}
+.hero--light .btn--ghost{border-color:#3e370d}
+.hero--light .btn::before{background:var(--accent)}
+.hero--light .btn:hover{background:var(--accent);border-color:var(--accent);color:#141715}
+.hero--light .btn:hover::before{background:#141715}
+/* Narrower than the dark hero's 64%. The ink gradient has thinned to about 0.11
+   by 64% across, so line-ends were falling off the dark ground; 46% keeps every
+   line over ink that is still doing work. */
+.hero--light .hero__col{max-width:min(560px,46%)}
+.hero--light .hero__col>p{max-width:26em}
+
+
+/* ---------- customer banner ---------- */
+.marquee{
+  position:relative;overflow:hidden;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  background:var(--ink-2);padding:22px 0;
+}
+/* fade the ends so names enter and leave rather than being chopped */
+.marquee::before,.marquee::after{
+  content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none;
+}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--ink-2),transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,var(--ink-2),transparent)}
+.marquee__track{display:flex;width:max-content;animation:marquee 42s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee__row{display:flex;align-items:center;gap:58px;margin:0;padding:0 29px;list-style:none}
+.marquee__item{
+  flex:none;display:flex;align-items:center;
+  opacity:.62;transition:opacity .22s var(--ease);
+}
+.marquee__item:hover{opacity:1}
+.marquee__item:hover{opacity:1;color:var(--text)}
+/* logos drop straight in place of the text */
+/* The artwork is already knocked out and recoloured, so no filter is needed here.
+   Height is capped AND width is capped, because a wide wordmark and a squarer mark
+   set to the same height do not read as the same size. */
+.marquee__item img{display:block;height:28px;width:auto;max-width:150px;object-fit:contain}
+@keyframes marquee{from{transform:translate3d(0,0,0)} to{transform:translate3d(-50%,0,0)}}
+@media (prefers-reduced-motion:reduce){
+  .marquee__track{animation:none;flex-wrap:wrap;width:100%;justify-content:center}
+  .marquee__row:last-child{display:none}
+}
+@media (max-width:760px){
+  .marquee{padding:16px 0}
+  .marquee__row{gap:38px;padding:0 19px}
+  .marquee__item{font-size:14px}
+}
