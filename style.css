@@ -827,7 +827,12 @@ button,input,textarea{font:inherit;color:inherit}
   min-height:560px;max-height:900px;
 }
 .hero--filing .hero__still{object-position:50% 50%}
-.hero--filing .hero__col{margin-left:9%;max-width:min(430px,31%)}
+/* The copy is positioned against the VIEWPORT, not the centred 1200px container.
+   The shadow belongs to the full-bleed image and sits at a fixed 11-28% across,
+   so a centred container drifts away from it on wide screens — at 2560 the copy
+   was starting at 31%, well past the shadow's right edge. */
+.hero--filing .hero__inner{max-width:none;padding:0 var(--pad-x)}
+.hero--filing .hero__col{margin-left:calc(11vw - var(--pad-x));max-width:min(430px,25vw)}
 .hero--filing .hero__col>p{max-width:none;font-size:17px;line-height:1.5}
 .hero--filing .hero__cta{flex-wrap:nowrap;gap:12px}
 .hero--filing .hero__scrim{
