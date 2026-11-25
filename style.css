@@ -305,9 +305,9 @@ button,input,textarea{font:inherit;color:inherit}
     rgba(255,204,0,1) 89.0%, rgba(255,204,0,1) 98.0%, rgba(255,204,0,0) 98.0%,
     rgba(255,204,0,0) 100%);
 }
-.site-header__logo.is-scanning .logo__read{animation:logoRead 5.2s cubic-bezier(.45,0,.55,1) forwards}
-.site-header__logo.is-scanning .logo__beam{animation:logoTravel 5.2s cubic-bezier(.45,0,.55,1) forwards,
-                                                     logoFlicker 5.2s linear forwards}
+.site-header__logo.is-scanning .logo__read{animation:logoRead 6.6s cubic-bezier(.45,0,.55,1) forwards}
+.site-header__logo.is-scanning .logo__beam{animation:logoTravel 6.6s cubic-bezier(.45,0,.55,1) forwards,
+                                                     logoFlicker 6.6s linear forwards}
 .site-header__logo.is-scanning .logo__beam::before{animation:logoWinkA .95s steps(1,end) infinite}
 .site-header__logo.is-scanning .logo__beam::after {animation:logoWinkB .73s steps(1,end) infinite}
 
