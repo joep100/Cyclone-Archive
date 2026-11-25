@@ -846,6 +846,23 @@ button,input,textarea{font:inherit;color:inherit}
 }
 @media (max-width:900px){
   .hero--filing .hero__col{margin-left:0;max-width:none}
-  .hero--filing .hero__cta{flex-wrap:wrap}
+  /* Stacked, the buttons must be the SAME width or their lamps do not line up —
+     the lamp is centred on each button, so two different widths put the lamps at
+     two different positions. Stretching them to a common width fixes the lamps
+     as well as the labels. */
+  .hero--filing .hero__cta{flex-wrap:wrap;flex-direction:column;align-items:stretch}
   .hero--filing .hero__scrim{background:linear-gradient(180deg,rgba(14,18,16,.86),rgba(14,18,16,.78))}
+}
+
+/* ---------- narrow screens: equal-width buttons so the lamps align ---------- */
+@media (max-width:620px){
+  /* Any run of buttons, wherever it sits. Stacked, they must share a width or
+     their lamps land at different positions — the lamp is centred on each button,
+     so two widths means two offsets. */
+  .hero__cta{flex-direction:column;align-items:stretch;gap:18px}
+  .btn{width:100%;justify-content:flex-start}
+  .btn--sm{width:auto}
+  /* on a full-width button a 152px lamp floating mid-span looks arbitrary, so it
+     pins to the left edge over the label instead */
+  .btn::before,.btn::after{left:0;right:auto;transform:none}
 }
