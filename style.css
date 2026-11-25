@@ -231,8 +231,18 @@ button,input,textarea{font:inherit;color:inherit}
 /* Two stacked wordmarks, white over yellow. A lamp travels down turning the word
    yellow, then back up restoring it — so the resting state is the normal logo and
    the scan is an event, not a permanent change. */
-.site-header__logo{--h:36px;position:relative;display:inline-block;line-height:0;margin-right:auto}
-.site-header__logo img{display:block;height:var(--h);width:auto}
+/* The wordmark stays an image; "Archive" is live Inter text, so it stays sharp at
+   any size and costs nothing. .logo__mark is the positioning context for the scan
+   layers — the beam must not travel over the label. */
+.site-header__logo{--h:36px;display:inline-flex;flex-direction:column;align-items:flex-end;
+  gap:3px;margin-right:auto;line-height:0}
+.logo__mark{position:relative;display:block;line-height:0}
+.logo__sub{
+  font:600 calc(var(--h) * 0.30)/1 var(--sans);
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);
+}
+.site-header__logo .logo__mark img{display:block;height:var(--h);width:auto}
 .logo__read{position:absolute;inset:0;height:100%;width:auto;clip-path:inset(0 0 100% 0)}
 .logo__beam{
   position:absolute;left:-7%;right:-7%;top:0;
